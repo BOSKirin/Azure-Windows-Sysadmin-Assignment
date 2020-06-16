@@ -33,3 +33,70 @@ Run the ‘Command Prompt’ as Administrator → type command ‘gpupdate /forc
 ![](Images/UpdateGPO.png)
 
 ![](Images/NewGroup.png)
+
+![](Images/AD-1.png)
+
+![](Images/AddPC.png)
+
+![](Images/GPM-setting-1.png)
+
+To verify the GPO has been applied to the GC computer OU
+
+![](Images/Verification-GPO-added.png)
+
+### Task 2:  Create a File Share for the Developers
+
+Since there is no ‘Development’ OU in domain goodcorp.net, we need to follow the guide we learned from class to create an OU named ‘Development’ for the developers; then create a new user named Andrew who works for the development team.
+
+1. With the Server Manager open, click on Tools at the top-right.
+2. Select the Active Directory Users and Computers (ADUC) tool.
+3. With ADUC open, do the following:
+  - Right-click GC Users under GOODCORP.NET, go to New, then Organizational Unit.
+  - Name this sub-OU Development.
+  
+4. Create a new user named Andrew for OU Development, create a group named Development for OU Development.
+5. Add Andrew into the group Development.
+
+![](Images/OU-create.png)
+
+Followed the guide to create a shared file named ‘dev’ in Windows Server VM:
+1. In the Server Manager click on File and Storage Services.
+2. Click on the Shares tab to show current shared files and folders.
+3. Click on TASKS then New Share to the right of Shares | all shares.
+4. On the Select the profile for this share, make sure SMB Share - Quick is highlighted and click ‘Next >’.
+5. On the Select the server and path for this share window, Click Next >.
+6. On the Specify share name window, for the Share name: enter ‘dev’. Click Next >.
+7. On the Configure share settings, check Enable access-based enumeration and leave Allow caching of share checked. Click Next >.
+8. On the Specify permissions to control access, click Customize permissions....
+  - On the Advanced Security Settings for Development window, do the following:
+    - Click Add.
+    - On the Permission Entry for Development window, Select a principal, enter Development, click Check Names, then click OK.
+    - Check Write, click OK.
+    
+![](Images/Shared-file-create.png)
+
+The Development group is now added to the Permission entries list.
+
+You never want to assign single users to a resource. We always want to assign groups to resources. This allows us to more efficiently manage permissions.
+
+9. Click Disable inheritance, pick -> Convert inherited permissions into explicit permissions on this object.
+
+![](Images/Shared-file-security-setting-1.png)
+
+10. Remove both Users (GOODCORP\Users) permissions. The only ones left should be: Administrators, SYSTEM, CREATOR OWNER, and Sales (GOODCORP\Development).
+
+![](Images/Shared-file-security-setting-2.png)
+
+Understand that not all domain users won't be able to access this share and that only users in the Development group can.
+
+11. Click Apply and OK to exit the Advanced Security Settings for Development window.
+12. Click Next >.
+13. On the Confirm selections screen, click Create.
+14. Click Close after it's done creating.
+
+Since we ask the new created domain user Andrew to change password when he first time login the system.
+
+![](Images/New-user-login-1.png)
+
+![](Images/New-user-login-2.png)
+
