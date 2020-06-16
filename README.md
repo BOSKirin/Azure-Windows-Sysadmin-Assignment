@@ -100,3 +100,66 @@ Since we ask the new created domain user Andrew to change password when he first
 
 ![](Images/New-user-login-2.png)
 
+Open the file explorer and test the new file share by replacing the current navigation URL to \\WIN-4NMH1RF1JT5.goodcorp.net\dev.
+
+![](Images/Get-PC-name.png)
+
+Because we don’t have anything files in the shared sholder ‘dev’, it shows ‘This folder is empty’. The screenshot below:
+
+![](Images/Verification-Shared-file-1.png)
+
+To verify the shared folder is created successfully, we can go to ‘This PC → C:\ drive → Shares’, there are created share folder for each department. I combined this task ‘dev’ and the bonus one ‘Sales’ in the same screenshot below:
+
+![](Images/Verification-Shared-file-2.png)
+
+- Bonus 1:  Login as GoodCorp\Bob and attempt to access all file shares (since we create b.smith as Bob’s login username in the class, the screenshots and commands will run with ‘b.smith’ instead of Bob in this task)
+
+The screenshots are to illustrate how to add file share for the Sales department (same steps I did for ‘dev’ in task 2)
+
+![](Images/Bonus-1-1.png)
+
+Need to enable the ‘Remote Desktop’ option in the local server option to enable domain users to login to the machines.
+
+![](Images/Bonus-1-2.png)
+
+![](Images/Bonus-1-3.png)
+
+![](Images/Bonus-1-4.png)
+
+Login as Bob (b.smith) on the windows 10 VM, access \\WIN-4NMH1RF1JT5.goodcorp.net\Sales without any permission denied. However, if Bob wants to access the  \\WIN-4NMH1RF1JT5.goodcorp.net\dev, there is an error window popup because Bob is not in the group of Development so that Bob doesn’t have access to the dev shared folder. The same error will occur when Andrew tries to access ‘Sales’ shared folder. 
+
+![](Images/Bonus-1-5.png)
+
+![](Images/Bonus-1-6.png)
+
+- Bonus 2:  Comparing SIDS for the Sales and Dev Teams
+
+Login as Andrew on the Windows 10 VM, since Andrew doesn’t have permission to access Sales group, there is an error occurs when Andrew tried to access ACL of Sales shared folder.
+
+![](Images/Bonus-2-1.png)
+
+Since both Bob (b.smith) and Andrew, Sales and Development group are all in the same domain; they are domain users, groups, we can run the commands to check their shared folder’s ACL, principal group membership (SIDs).
+
+![](Images/Bonus-2-2.png)
+
+![](Images/Bonus-2-3.png)
+
+![](Images/Bonus-2-4.png)
+
+### Task 3:  Create a logon script GPO
+
+Create a new folder named ‘Projects’ in the ‘dev’ fileshare directory.
+
+![](Images.Shared-file-create-new-folder.png)
+
+![](Images/Create-shell-script-1.png)
+
+![](Images/Create-shell-script-2.png)
+
+![](Images/Create-shell-script-3.png)
+
+To verify this task to login the windows 10 VM as Andrew, since Andrew is in group Development
+
+![](Images/Verification-Shared-file-access-1.png)
+
+![](Images/Verification-Shared-file-access-2.png)
